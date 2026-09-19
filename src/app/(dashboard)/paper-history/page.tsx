@@ -5,17 +5,11 @@ import { Button } from "@/components/ui/button";
 
 export const dynamic = "force-dynamic";
 
+import { serializeFirestoreDoc } from "@/lib/firestore-utils";
+
 async function getPapers(): Promise<GeneratedPaper[]> {
-  try {
-    const snapshot = await adminDb.collection("papers").orderBy("createdAt", "desc").get();
-    return snapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    })) as GeneratedPaper[];
-  } catch (error) {
-    console.error("Error fetching papers:", error);
-    return [];
-  }
+  const snapshot = await adminDb.collection("papers").orderBy("createdAt", "desc").get();
+  return snapshot.docs.map((doc) => serializeFirestoreDoc(doc) as GeneratedPaper);
 }
 
 export default async function PaperHistoryPage() {

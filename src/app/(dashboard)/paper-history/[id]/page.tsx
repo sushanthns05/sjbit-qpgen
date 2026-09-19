@@ -8,20 +8,21 @@ import { PaperControls } from "./PaperControls";
 import { SwapButton } from "./SwapButton";
 
 export const dynamic = "force-dynamic";
+import { serializeFirestoreDoc } from "@/lib/firestore-utils";
 
 export default async function PaperPage({ params }: { params: { id: string } }) {
   // 1. Fetch Paper
   const paperDoc = await adminDb.collection("papers").doc(params.id).get();
   if (!paperDoc.exists) notFound();
-  const paper = { id: paperDoc.id, ...paperDoc.data() } as GeneratedPaper;
+  const paper = serializeFirestoreDoc(paperDoc) as GeneratedPaper;
 
   // 2. Fetch Template
   const tplDoc = await adminDb.collection("templates").doc(paper.templateId).get();
-  const template = tplDoc.exists ? (tplDoc.data() as PaperTemplate) : null;
+  const template = tplDoc.exists ? (serializeFirestoreDoc(tplDoc) as PaperTemplate) : null;
   
   // 3. Fetch Blueprint for comparative analysis
   const bpDoc = await adminDb.collection("blueprints").doc(paper.blueprintId).get();
-  const blueprint = bpDoc.exists ? (bpDoc.data() as Blueprint) : null;
+  const blueprint = bpDoc.exists ? (serializeFirestoreDoc(bpDoc) as Blueprint) : null;
 
   const isFinalized = paper.status === "Finalized";
 

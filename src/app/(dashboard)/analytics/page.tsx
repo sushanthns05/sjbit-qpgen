@@ -4,40 +4,23 @@ import { adminDb } from "@/lib/firebase-admin";
 export const dynamic = "force-dynamic";
 
 async function getAnalyticsData() {
-  try {
-    const questionsSnapshot = await adminDb.collection("questions").count().get();
-    const papersSnapshot = await adminDb.collection("papers").count().get();
-    const templatesSnapshot = await adminDb.collection("templates").count().get();
-    const blueprintsSnapshot = await adminDb.collection("blueprints").count().get();
+  const questionsSnapshot = await adminDb.collection("questions").count().get();
+  const papersSnapshot = await adminDb.collection("papers").count().get();
+  const templatesSnapshot = await adminDb.collection("templates").count().get();
+  const blueprintsSnapshot = await adminDb.collection("blueprints").count().get();
 
-    return {
-      totalQuestions: questionsSnapshot.data().count,
-      totalPapers: papersSnapshot.data().count,
-      totalTemplates: templatesSnapshot.data().count,
-      totalBlueprints: blueprintsSnapshot.data().count,
-    };
-  } catch (error) {
-    console.error("Failed to load analytics:", error);
-    return null;
-  }
+  return {
+    totalQuestions: questionsSnapshot.data().count,
+    totalPapers: papersSnapshot.data().count,
+    totalTemplates: templatesSnapshot.data().count,
+    totalBlueprints: blueprintsSnapshot.data().count,
+  };
 }
 
 export default async function AnalyticsPage() {
   const data = await getAnalyticsData();
 
-  if (!data) {
-    return (
-      <div className="space-y-6">
-        <div>
-          <h2 className="text-3xl font-bold tracking-tight">Analytics</h2>
-          <p className="text-muted-foreground">System-wide statistics and reporting.</p>
-        </div>
-        <div className="flex h-64 shrink-0 items-center justify-center rounded-md border border-dashed">
-          <p className="text-muted-foreground">No analytics data available yet. Please generate some content first.</p>
-        </div>
-      </div>
-    );
-  }
+
 
   return (
     <div className="space-y-6">

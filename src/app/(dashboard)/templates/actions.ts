@@ -6,20 +6,11 @@ import { revalidatePath } from "next/cache";
 
 const COLLECTION_NAME = "templates";
 
+import { serializeFirestoreDoc } from "@/lib/firestore-utils";
+
 export async function getTemplates(): Promise<PaperTemplate[]> {
-  try {
-    const snapshot = await adminDb.collection(COLLECTION_NAME).orderBy("createdAt", "desc").get();
-    return snapshot.docs.map((doc) => {
-      const data = doc.data();
-      return {
-        ...data,
-        id: doc.id,
-      } as PaperTemplate;
-    });
-  } catch (error) {
-    console.error("Error fetching templates:", error);
-    return [];
-  }
+  const snapshot = await adminDb.collection(COLLECTION_NAME).orderBy("createdAt", "desc").get();
+  return snapshot.docs.map((doc) => serializeFirestoreDoc(doc) as PaperTemplate);
 }
 
 export async function createTemplate(data: Omit<PaperTemplate, "id" | "createdAt" | "updatedAt">): Promise<{ success: boolean; id?: string; error?: string }> {

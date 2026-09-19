@@ -2,11 +2,13 @@
 "use server";
 
 import { adminDb } from "@/lib/firebase-admin";
-import { generateQuestion, GenerateQuestionParams } from "@/lib/ai";
+import { generateQuestionsBatch, GenerateQuestionParams } from "@/lib/ai";
+import { serializeFirestoreDoc } from "@/lib/firestore-utils";
 
 export async function createQuestionAI(params: GenerateQuestionParams) {
   try {
-    const aiResponse = await generateQuestion(params);
+    const aiResponses = await generateQuestionsBatch(params, 1);
+    const aiResponse = aiResponses[0];
     
     // Save to Firestore as Draft
     const questionDoc = {
@@ -53,10 +55,7 @@ export async function getQuestions(filters?: { subject?: string; status?: string
     query = query.orderBy("createdAt", "desc");
     const snapshot = await query.get();
     
-    const questions = snapshot.docs.map((doc: any) => ({
-      id: doc.id,
-      ...doc.data()
-    }));
+    const questions = snapshot.docs.map((doc: any) => serializeFirestoreDoc(doc));
     
     return { success: true, data: questions };
   } catch (error: any) {

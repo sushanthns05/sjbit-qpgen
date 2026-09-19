@@ -6,20 +6,11 @@ import { revalidatePath } from "next/cache";
 
 const COLLECTION_NAME = "blueprints";
 
+import { serializeFirestoreDoc } from "@/lib/firestore-utils";
+
 export async function getBlueprints(): Promise<Blueprint[]> {
-  try {
-    const snapshot = await adminDb.collection(COLLECTION_NAME).orderBy("createdAt", "desc").get();
-    return snapshot.docs.map((doc) => {
-      const data = doc.data();
-      return {
-        ...data,
-        id: doc.id,
-      } as Blueprint;
-    });
-  } catch (error) {
-    console.error("Error fetching blueprints:", error);
-    return [];
-  }
+  const snapshot = await adminDb.collection(COLLECTION_NAME).orderBy("createdAt", "desc").get();
+  return snapshot.docs.map((doc) => serializeFirestoreDoc(doc) as Blueprint);
 }
 
 export async function createBlueprint(data: Omit<Blueprint, "id" | "createdAt" | "updatedAt">): Promise<{ success: boolean; id?: string; error?: string }> {

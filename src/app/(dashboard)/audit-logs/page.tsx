@@ -1,18 +1,11 @@
 import { adminDb } from "@/lib/firebase-admin";
 
 export const dynamic = "force-dynamic";
+import { serializeFirestoreDoc } from "@/lib/firestore-utils";
 
 export default async function AuditLogsPage() {
-  let logs: any[] = [];
-  try {
-    const snapshot = await adminDb.collection("audit_logs").orderBy("timestamp", "desc").limit(100).get();
-    logs = snapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    }));
-  } catch (error) {
-    console.error("Failed to load audit logs:", error);
-  }
+  const snapshot = await adminDb.collection("audit_logs").orderBy("timestamp", "desc").limit(100).get();
+  const logs = snapshot.docs.map(doc => serializeFirestoreDoc(doc));
 
   return (
     <div className="space-y-6">
