@@ -76,7 +76,7 @@ export function TemplateDialog({ template, children }: { template?: PaperTemplat
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild render={children} />
+      <DialogTrigger render={children} />
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>{template ? "Edit Template" : "Create Template"}</DialogTitle>
