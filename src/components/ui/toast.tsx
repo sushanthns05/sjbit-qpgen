@@ -219,12 +219,12 @@ const useToastManager = ToastPrimitive.useToastManager
 
 export function useToast() {
   return {
-    toast: (opts: { title?: string, description?: string, variant?: string }) => {
+    toast: (opts: { title?: React.ReactNode, description?: React.ReactNode, variant?: string }) => {
       toast.add({
         title: opts.title,
         description: opts.description,
         type: opts.variant === "destructive" ? "error" : "success"
-      } as unknown)
+      })
     }
   }
 }
