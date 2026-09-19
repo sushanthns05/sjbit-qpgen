@@ -1,18 +1,14 @@
 "use server";
 
-import { getFirestore } from "firebase-admin/firestore";
-import { getFirebaseAdminApp } from "@/lib/firebase-admin";
+import { adminDb } from "@/lib/firebase-admin";
 import { Blueprint } from "@/types/paper";
 import { revalidatePath } from "next/cache";
-
-// Helper to get Firestore instance
-const db = () => getFirestore(getFirebaseAdminApp());
 
 const COLLECTION_NAME = "blueprints";
 
 export async function getBlueprints(): Promise<Blueprint[]> {
   try {
-    const snapshot = await db().collection(COLLECTION_NAME).orderBy("createdAt", "desc").get();
+    const snapshot = await adminDb.collection(COLLECTION_NAME).orderBy("createdAt", "desc").get();
     return snapshot.docs.map((doc) => {
       const data = doc.data();
       return {
@@ -29,7 +25,7 @@ export async function getBlueprints(): Promise<Blueprint[]> {
 export async function createBlueprint(data: Omit<Blueprint, "id" | "createdAt" | "updatedAt">): Promise<{ success: boolean; id?: string; error?: string }> {
   try {
     const now = new Date().toISOString();
-    const docRef = await db().collection(COLLECTION_NAME).add({
+    const docRef = await adminDb.collection(COLLECTION_NAME).add({
       ...data,
       createdAt: now,
       updatedAt: now,
@@ -46,7 +42,7 @@ export async function createBlueprint(data: Omit<Blueprint, "id" | "createdAt" |
 export async function updateBlueprint(id: string, data: Partial<Blueprint>): Promise<{ success: boolean; error?: string }> {
   try {
     const now = new Date().toISOString();
-    await db().collection(COLLECTION_NAME).doc(id).update({
+    await adminDb.collection(COLLECTION_NAME).doc(id).update({
       ...data,
       updatedAt: now,
     });
@@ -61,7 +57,7 @@ export async function updateBlueprint(id: string, data: Partial<Blueprint>): Pro
 
 export async function deleteBlueprint(id: string): Promise<{ success: boolean; error?: string }> {
   try {
-    await db().collection(COLLECTION_NAME).doc(id).delete();
+    await adminDb.collection(COLLECTION_NAME).doc(id).delete();
     revalidatePath("/blueprints");
     return { success: true };
   } catch (error: any) {

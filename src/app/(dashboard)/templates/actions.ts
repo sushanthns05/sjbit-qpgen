@@ -1,17 +1,14 @@
 "use server";
 
-import { getFirestore } from "firebase-admin/firestore";
-import { getFirebaseAdminApp } from "@/lib/firebase-admin";
+import { adminDb } from "@/lib/firebase-admin";
 import { PaperTemplate } from "@/types/paper";
 import { revalidatePath } from "next/cache";
-
-const db = () => getFirestore(getFirebaseAdminApp());
 
 const COLLECTION_NAME = "templates";
 
 export async function getTemplates(): Promise<PaperTemplate[]> {
   try {
-    const snapshot = await db().collection(COLLECTION_NAME).orderBy("createdAt", "desc").get();
+    const snapshot = await adminDb.collection(COLLECTION_NAME).orderBy("createdAt", "desc").get();
     return snapshot.docs.map((doc) => {
       const data = doc.data();
       return {
@@ -28,7 +25,7 @@ export async function getTemplates(): Promise<PaperTemplate[]> {
 export async function createTemplate(data: Omit<PaperTemplate, "id" | "createdAt" | "updatedAt">): Promise<{ success: boolean; id?: string; error?: string }> {
   try {
     const now = new Date().toISOString();
-    const docRef = await db().collection(COLLECTION_NAME).add({
+    const docRef = await adminDb.collection(COLLECTION_NAME).add({
       ...data,
       createdAt: now,
       updatedAt: now,
@@ -45,7 +42,7 @@ export async function createTemplate(data: Omit<PaperTemplate, "id" | "createdAt
 export async function updateTemplate(id: string, data: Partial<PaperTemplate>): Promise<{ success: boolean; error?: string }> {
   try {
     const now = new Date().toISOString();
-    await db().collection(COLLECTION_NAME).doc(id).update({
+    await adminDb.collection(COLLECTION_NAME).doc(id).update({
       ...data,
       updatedAt: now,
     });
@@ -60,7 +57,7 @@ export async function updateTemplate(id: string, data: Partial<PaperTemplate>): 
 
 export async function deleteTemplate(id: string): Promise<{ success: boolean; error?: string }> {
   try {
-    await db().collection(COLLECTION_NAME).doc(id).delete();
+    await adminDb.collection(COLLECTION_NAME).doc(id).delete();
     revalidatePath("/templates");
     return { success: true };
   } catch (error: any) {
