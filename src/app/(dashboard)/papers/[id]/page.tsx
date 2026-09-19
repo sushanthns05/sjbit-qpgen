@@ -47,7 +47,7 @@ export default async function PaperPage({ params }: { params: { id: string } }) 
           </div>
         </div>
 
-        <div className="bg-white text-black p-8 rounded-xl shadow-sm border min-h-[1056px] font-serif">
+        <div className="bg-white text-black p-8 rounded-xl shadow-sm border min-h-264 font-serif">
           {/* Header Template */}
           {template && (
             <div className="text-center border-b-2 border-black pb-4 mb-6">
