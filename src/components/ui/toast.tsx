@@ -243,5 +243,4 @@ export {
   createToastManager,
   toast,
   useToastManager,
-  useToast,
 }
