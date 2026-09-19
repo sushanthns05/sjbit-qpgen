@@ -9,7 +9,7 @@ import { useToast } from "@/components/ui/toast";
 import { PaperTemplate } from "@/types/paper";
 import { createTemplate, updateTemplate } from "@/app/(dashboard)/templates/actions";
 
-export function TemplateDialog({ template, children }: { template?: PaperTemplate; children: React.ReactNode }) {
+export function TemplateDialog({ template, children }: { template?: PaperTemplate; children: React.ReactElement }) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();

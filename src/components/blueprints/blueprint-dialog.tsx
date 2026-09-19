@@ -9,7 +9,7 @@ import { useToast } from "@/components/ui/toast";
 import { Blueprint, BlueprintSection } from "@/types/paper";
 import { createBlueprint, updateBlueprint } from "@/app/(dashboard)/blueprints/actions";
 
-export function BlueprintDialog({ blueprint, children }: { blueprint?: Blueprint; children: React.ReactNode }) {
+export function BlueprintDialog({ blueprint, children }: { blueprint?: Blueprint; children: React.ReactElement }) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
