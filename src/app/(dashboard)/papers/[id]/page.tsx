@@ -1,8 +1,11 @@
 import { adminDb } from "@/lib/firebase-admin";
 import { GeneratedPaper, PaperTemplate, Blueprint } from "@/types/paper";
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { PaperControls } from "./PaperControls";
+import { SwapButton } from "./SwapButton";
 
 export const dynamic = "force-dynamic";
 
@@ -20,16 +23,27 @@ export default async function PaperPage({ params }: { params: { id: string } }) 
   const bpDoc = await adminDb.collection("blueprints").doc(paper.blueprintId).get();
   const blueprint = bpDoc.exists ? (bpDoc.data() as Blueprint) : null;
 
+  const isFinalized = paper.status === "Finalized";
+
   return (
     <div className="flex flex-col lg:flex-row gap-6">
       
       {/* Paper Preview */}
       <div className="flex-1 space-y-6">
         <div className="flex justify-between items-center">
-          <h2 className="text-3xl font-bold tracking-tight">Paper Preview</h2>
-          <div className="space-x-2">
-            <Button variant="outline">Edit Paper</Button>
-            <Button>Export PDF</Button>
+          <div className="flex items-center gap-3">
+            <h2 className="text-3xl font-bold tracking-tight">Paper Preview</h2>
+            {isFinalized && (
+              <span className="px-2 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded uppercase">
+                Finalized
+              </span>
+            )}
+          </div>
+          <div className="space-x-2 flex items-center">
+            <PaperControls paperId={paper.id} status={paper.status} />
+            <Link href={`/papers/${paper.id}/print`} target="_blank">
+              <Button variant="outline">Export PDF</Button>
+            </Link>
           </div>
         </div>
 
@@ -68,7 +82,7 @@ export default async function PaperPage({ params }: { params: { id: string } }) 
                 
                 <div className="space-y-6 mt-4">
                   {section.questions.map((q, qIdx) => (
-                    <div key={qIdx} className="flex gap-4">
+                    <div key={qIdx} className="flex gap-4 relative group">
                       <div className="font-bold">{qIdx + 1}.</div>
                       <div className="flex-1">
                         <div dangerouslySetInnerHTML={{ __html: q.text }} />
@@ -82,7 +96,14 @@ export default async function PaperPage({ params }: { params: { id: string } }) 
                           </ol>
                         )}
                       </div>
-                      <div className="font-bold">[{q.marks}]</div>
+                      <div className="flex flex-col items-end gap-1">
+                        <div className="font-bold">[{q.marks}]</div>
+                        {!isFinalized && (
+                           <div className="opacity-0 group-hover:opacity-100 transition-opacity">
+                             <SwapButton paperId={paper.id} sectionId={section.sectionId} questionId={q.questionId} />
+                           </div>
+                        )}
+                      </div>
                     </div>
                   ))}
                 </div>
