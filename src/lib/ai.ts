@@ -1,8 +1,12 @@
 import { GoogleGenerativeAI, SchemaType } from "@google/generative-ai";
 
-// Initialize the Gemini AI client
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
-const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" }); // Using a fast, standard model
+// The client will be instantiated per request if custom key is provided
+function getAIClient(customKey?: string) {
+  const key = customKey || process.env.GEMINI_API_KEY;
+  if (!key) throw new Error("GEMINI_API_KEY is not provided");
+  const genAI = new GoogleGenerativeAI(key);
+  return genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+}
 
 export interface GenerateQuestionParams {
   subject: string;
@@ -50,11 +54,7 @@ const questionSchema = {
   required: ["text", "explanation"]
 };
 
-export async function generateQuestion(params: GenerateQuestionParams) {
-  if (!process.env.GEMINI_API_KEY) {
-    throw new Error("GEMINI_API_KEY is not set in environment variables");
-  }
-
+export async function generateQuestion(params: GenerateQuestionParams, customKey?: string) {
   const prompt = `
     You are an expert exam question generator for a university. 
     Generate a high-quality question based on the following parameters:
@@ -75,6 +75,7 @@ export async function generateQuestion(params: GenerateQuestionParams) {
   `;
 
   try {
+    const model = getAIClient(customKey);
     const result = await model.generateContent({
       contents: [{ role: "user", parts: [{ text: prompt }] }],
       generationConfig: {

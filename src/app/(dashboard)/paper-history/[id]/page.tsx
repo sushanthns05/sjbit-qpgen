@@ -41,7 +41,7 @@ export default async function PaperPage({ params }: { params: { id: string } }) 
           </div>
           <div className="space-x-2 flex items-center">
             <PaperControls paperId={paper.id} status={paper.status} />
-            <Link href={`/papers/${paper.id}/print`} target="_blank">
+            <Link href={`/paper-history/${paper.id}/print`} target="_blank">
               <Button variant="outline">Export PDF</Button>
             </Link>
           </div>

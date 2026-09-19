@@ -25,7 +25,7 @@ const routes = [
   { label: "Question Bank", icon: Database, href: "/questions" },
   { label: "Templates", icon: FileText, href: "/templates" },
   { label: "Blueprints", icon: LayoutTemplate, href: "/blueprints" },
-  { label: "Generate Paper", icon: Sparkles, href: "/generate" },
+  { label: "Generate Paper", icon: Sparkles, href: "/generate-paper" },
   { label: "Paper History", icon: History, href: "/paper-history" },
   { label: "Analytics", icon: BarChart, href: "/analytics" },
   { label: "Audit Logs", icon: Shield, href: "/audit-logs" },

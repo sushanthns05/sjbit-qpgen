@@ -27,7 +27,7 @@ export function GeneratePaperForm({ blueprints, templates }: { blueprints: Bluep
       const res = await generatePaper(blueprintId, templateId);
       if (res.success && res.id) {
         toast({ title: "Success", description: "Paper generated successfully!" });
-        router.push(`/papers/${res.id}`);
+        router.push(`/paper-history/${res.id}`);
       } else {
         throw new Error(res.error || "Generation failed");
       }

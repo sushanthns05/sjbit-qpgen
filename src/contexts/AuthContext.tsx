@@ -26,21 +26,25 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
       if (firebaseUser) {
-        // Fetch role from Firestore users collection
-        try {
-          const userDoc = await getDoc(doc(db, "users", firebaseUser.uid));
-          const role = userDoc.exists() ? userDoc.data().role : "VIEWER";
-          setUser({ ...firebaseUser, role } as AppUser);
-        } catch (error) {
-          console.error("Failed to fetch user role:", error);
-          setUser({ ...firebaseUser, role: "VIEWER" } as AppUser);
-        }
+        // Optimistically set the user to unblock the UI rendering immediately
+        setUser({ ...firebaseUser, role: "VIEWER" } as AppUser);
+        setLoading(false);
+
+        // Fetch role from Firestore users collection in the background
+        getDoc(doc(db, "users", firebaseUser.uid))
+          .then((userDoc) => {
+            const role = userDoc.exists() ? userDoc.data().role : "VIEWER";
+            setUser((prev) => prev ? { ...prev, role } : prev);
+          })
+          .catch((error) => {
+            console.error("Failed to fetch user role:", error);
+          });
       } else {
         setUser(null);
+        setLoading(false);
       }
-      setLoading(false);
     });
 
     return () => unsubscribe();

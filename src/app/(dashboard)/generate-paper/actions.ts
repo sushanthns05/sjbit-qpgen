@@ -3,6 +3,7 @@
 import { adminDb } from "@/lib/firebase-admin";
 import { Blueprint, GeneratedPaper, GeneratedPaperSection, GeneratedPaperQuestion, PaperTemplate } from "@/types/paper";
 import { revalidatePath } from "next/cache";
+import { logAudit } from "@/lib/audit";
 
 // Helper to shuffle an array
 function shuffleArray<T>(array: T[]): T[] {
@@ -129,7 +130,9 @@ export async function generatePaper(blueprintId: string, templateId: string): Pr
 
     const docRef = await adminDb.collection("papers").add(paperDoc);
     
-    revalidatePath("/papers");
+    await logAudit("Generate Paper", `Generated paper for Blueprint ${blueprint.name} using Template ${templateId}`);
+    
+    revalidatePath("/paper-history");
     return { success: true, id: docRef.id };
 
   } catch (error: any) {

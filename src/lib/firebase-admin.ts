@@ -16,13 +16,18 @@ const getFirebaseAdminApp = (): App => {
     console.warn("Firebase Admin environment variables are missing.");
   }
 
-  return initializeApp({
-    credential: cert({
-      clientEmail: clientEmail || "",
-      privateKey: privateKey || "",
-      projectId: projectId || "",
-    }),
-  });
+  try {
+    return initializeApp({
+      credential: cert({
+        clientEmail: clientEmail || "uninitialized@example.com",
+        privateKey: privateKey || "-----BEGIN PRIVATE KEY-----\nUNINITIALIZED\n-----END PRIVATE KEY-----\n",
+        projectId: projectId || "uninitialized",
+      }),
+    });
+  } catch (error) {
+    console.error("Firebase Admin initialization failed. Returning fallback app.", error);
+    return initializeApp({ projectId: "uninitialized" }, "fallback");
+  }
 };
 
 export const adminApp = getFirebaseAdminApp();
