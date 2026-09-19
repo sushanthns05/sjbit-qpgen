@@ -1,0 +1,228 @@
+[debug] [2026-09-19T05:55:24.870Z] ----------------------------------------------------------------------
+[debug] [2026-09-19T05:55:24.875Z] Command:       C:\Program Files\nodejs\node.exe E:\Sushanth Projects\QP GEN\node_modules\firebase-tools\lib\bin\firebase.js deploy --non-interactive
+[debug] [2026-09-19T05:55:24.876Z] CLI Version:   15.30.2
+[debug] [2026-09-19T05:55:24.876Z] Platform:      win32
+[debug] [2026-09-19T05:55:24.876Z] Node Version:  v24.14.1
+[debug] [2026-09-19T05:55:24.877Z] Detected Agent: antigravity
+[debug] [2026-09-19T05:55:24.877Z] Time:          Sat Sep 19 2026 11:25:24 GMT+0530 (India Standard Time)
+[debug] [2026-09-19T05:55:24.877Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-09-19T05:55:28.506Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-09-19T05:55:28.507Z] > authorizing via signed-in user (sushanthns05@gmail.com)
+[debug] [2026-09-19T05:55:28.507Z] [iam] checking project qp-gen-df712 for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebase.projects.update","firebaseauth.configs.update","firebasehosting.sites.update"]
+[debug] [2026-09-19T05:55:28.540Z] Checked if tokens are valid: true, expires at: 1789800529690
+[debug] [2026-09-19T05:55:28.540Z] Checked if tokens are valid: true, expires at: 1789800529690
+[debug] [2026-09-19T05:55:28.543Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/qp-gen-df712:testIamPermissions [none]
+[debug] [2026-09-19T05:55:28.543Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/qp-gen-df712:testIamPermissions  x-goog-user-project=qp-gen-df712
+[debug] [2026-09-19T05:55:28.543Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/qp-gen-df712:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebase.projects.update","firebaseauth.configs.update","firebasehosting.sites.update"]}
+[debug] [2026-09-19T05:55:30.192Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/qp-gen-df712:testIamPermissions 200
+[debug] [2026-09-19T05:55:30.192Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/qp-gen-df712:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebase.projects.update","firebaseauth.configs.update","firebasehosting.sites.update"]}
+[debug] [2026-09-19T05:55:30.194Z] Checked if tokens are valid: true, expires at: 1789800529690
+[debug] [2026-09-19T05:55:30.194Z] Checked if tokens are valid: true, expires at: 1789800529690
+[debug] [2026-09-19T05:55:30.195Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/qp-gen-df712/serviceAccounts/qp-gen-df712@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2026-09-19T05:55:30.195Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/qp-gen-df712/serviceAccounts/qp-gen-df712@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2026-09-19T05:55:31.791Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/qp-gen-df712/serviceAccounts/qp-gen-df712@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2026-09-19T05:55:31.792Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/qp-gen-df712/serviceAccounts/qp-gen-df712@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2026-09-19T05:55:31.794Z] Checked if tokens are valid: true, expires at: 1789800529690
+[debug] [2026-09-19T05:55:31.794Z] Checked if tokens are valid: true, expires at: 1789800529690
+[debug] [2026-09-19T05:55:31.794Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/qp-gen-df712 [none]
+[debug] [2026-09-19T05:55:32.506Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/qp-gen-df712 200
+[debug] [2026-09-19T05:55:32.506Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/qp-gen-df712 {"projectId":"qp-gen-df712","projectNumber":"501503571264","displayName":"QP GEN","name":"projects/qp-gen-df712","resources":{"hostingSite":"qp-gen-df712"},"state":"ACTIVE","labels":{"firebase":"enabled"},"etag":"1_c99b8611-46d0-4b13-ae7e-4b9b66cc4fe0"}
+[debug] [2026-09-19T05:55:48.331Z] defaultcredentials: writing to file C:\Users\Dell\AppData\Roaming\firebase\sushanthns05_gmail_com_application_default_credentials.json
+[debug] [2026-09-19T05:55:48.338Z] Checked if tokens are valid: true, expires at: 1789800529690
+[debug] [2026-09-19T05:55:48.339Z] Checked if tokens are valid: true, expires at: 1789800529690
+[debug] [2026-09-19T05:55:48.339Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/qp-gen-df712/sites pageToken=&pageSize=10
+[debug] [2026-09-19T05:55:49.655Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/qp-gen-df712/sites 200
+[debug] [2026-09-19T05:55:49.655Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/qp-gen-df712/sites {"sites":[{"name":"projects/qp-gen-df712/sites/qp-gen-df712","defaultUrl":"https://qp-gen-df712.web.app","appId":"1:501503571264:web:286dd6eb5464bfca50b6a5","type":"DEFAULT_SITE"}]}
+[debug] [2026-09-19T05:55:49.656Z] Checked if tokens are valid: true, expires at: 1789800529690
+[debug] [2026-09-19T05:55:49.656Z] Checked if tokens are valid: true, expires at: 1789800529690
+[debug] [2026-09-19T05:55:49.656Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:501503571264:web:286dd6eb5464bfca50b6a5/config [none]
+[debug] [2026-09-19T05:55:50.864Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:501503571264:web:286dd6eb5464bfca50b6a5/config 200
+[debug] [2026-09-19T05:55:50.865Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:501503571264:web:286dd6eb5464bfca50b6a5/config {"projectId":"qp-gen-df712","appId":"1:501503571264:web:286dd6eb5464bfca50b6a5","storageBucket":"qp-gen-df712.firebasestorage.app","apiKey":"AIzaSyCpm9-tJCn_HLs94VCdKmN--qkXwQfMQYE","authDomain":"qp-gen-df712.firebaseapp.com","messagingSenderId":"501503571264","measurementId":"G-BGBNBHE7WR","projectNumber":"501503571264","version":"2"}
+[info] 
+   Thank you for trying our early preview of Next.js support on Firebase Hosting.
+   During the preview, support is best-effort and breaking changes can be expected. Proceed with caution.
+   The integration is known to work with Next.js version 12 - 16.0. You may encounter errors.
+
+   Documentation: https://firebase.google.com/docs/hosting/frameworks/nextjs
+   File a bug: https://github.com/firebase/firebase-tools/issues/new?template=bug_report.md
+   Submit a feature request: https://github.com/firebase/firebase-tools/issues/new?template=feature_request.md
+
+   We'd love to learn from you. Express your interest in helping us shape the future of Firebase Hosting: https://goo.gle/41enW5X
+
+[debug] [2026-09-19T05:56:18.727Z] Checked if tokens are valid: true, expires at: 1789800529690
+[debug] [2026-09-19T05:56:18.727Z] Checked if tokens are valid: true, expires at: 1789800529690
+[debug] [2026-09-19T05:56:18.727Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/qp-gen-df712/sites/qp-gen-df712 [none]
+[debug] [2026-09-19T05:56:19.952Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/qp-gen-df712/sites/qp-gen-df712 200
+[debug] [2026-09-19T05:56:19.953Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/qp-gen-df712/sites/qp-gen-df712 {"name":"projects/qp-gen-df712/sites/qp-gen-df712","defaultUrl":"https://qp-gen-df712.web.app","appId":"1:501503571264:web:286dd6eb5464bfca50b6a5","type":"DEFAULT_SITE"}
+[info] ▲ Next.js 16.3.5 (Turbopack)
+
+[info] - Environments: .env
+
+[info] ✓ Running next.config.ts took 2.4s
+
+[info] 
+
+[info]   Creating an optimized production build ...
+
+[info] 
+
+[info] > Build error occurred
+
+[info] Error: Turbopack build failed with 5 errors:
+./src/components/layout/header.tsx:7:9
+Error: 'const' declarations must be initialized
+   5 |
+   6 | export function Header() {
+>  7 |   const { user, signOut } from useAuth();
+     |         ^^^^^^^^^^^^^^^^^
+   8 |
+   9 |   return (
+  10 |     <header className="sticky top-0 z-10 flex h-16 items-center justify-between border-b b...
+
+Parsing ecmascript source code failed
+
+Import trace:
+  Server Component:
+    ./src/components/layout/header.tsx
+    ./src/app/(dashboard)/layout.tsx
+
+
+./src/components/layout/header.tsx:7:27
+Error: Expected a semicolon
+   5 |
+   6 | export function Header() {
+>  7 |   const { user, signOut } from useAuth();
+     |                           ^^^^
+   8 |
+   9 |   return (
+  10 |     <header className="sticky top-0 z-10 flex h-16 items-center justify-between border-b b...
+
+Parsing ecmascript source code failed
+
+Import trace:
+  Server Component:
+    ./src/components/layout/header.tsx
+    ./src/app/(dashboard)/layout.tsx
+
+
+./src/app/(dashboard)/syllabus/page.tsx:1:20
+Error: You're importing a module that depends on `useEffect` into a React Server Component module. This API is only available in Client Components. To fix, mark the file (or its parent) with the `"use client"` directive.
+    Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+> 1 | import { useState, useEffect } from "react";
+    |                    ^^^^^^^^^
+  2 | import { Button } from "@/components/ui/button";
+  3 | import { Input } from "@/components/ui/input";
+  4 | import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/...
+
+Ecmascript file had an error
+
+
+./src/app/(dashboard)/syllabus/page.tsx:1:10
+Error: You're importing a module that depends on `useState` into a React Server Component module. This API is only available in Client Components. To fix, mark the file (or its parent) with the `"use client"` directive.
+    Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+> 1 | import { useState, useEffect } from "react";
+    |          ^^^^^^^^
+  2 | import { Button } from "@/components/ui/button";
+  3 | import { Input } from "@/components/ui/input";
+  4 | import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/...
+
+Ecmascript file had an error
+
+
+./src/app/(dashboard)/syllabus/actions.ts:4:1
+Error: Export default doesn't exist in target module
+  2 |
+  3 | import { adminDb, adminStorage } from "@/lib/firebase-admin";
+> 4 | import pdfParse from "pdf-parse";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import { v4 as uuidv4 } from "uuid";
+  6 |
+  7 | export async function uploadAndParseSyllabus(formData: FormData) {
+
+The export default was not found in module [project]/node_modules/pdf-parse/dist/pdf-parse/esm/index.js [app-rsc] (ecmascript).
+Did you mean to import Rectangle?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/app/(dashboard)/syllabus/actions.ts
+    ./src/app/(dashboard)/syllabus/page.tsx
+
+
+    at <unknown> (./src/components/layout/header.tsx:7:9)
+    at <unknown> (./src/components/layout/header.tsx:7:27)
+    at <unknown> (./src/app/(dashboard)/syllabus/page.tsx:1:20)
+    at <unknown> (./src/app/(dashboard)/syllabus/page.tsx:1:10)
+    at <unknown> (./src/app/(dashboard)/syllabus/actions.ts:4:1)
+
+[debug] [2026-09-19T05:58:05.422Z] Error: ENOENT: no such file or directory, open 'E:\Sushanth Projects\QP GEN\.next\server\middleware-manifest.json'
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2026-09-19T06:14:20.525Z] ----------------------------------------------------------------------
+[debug] [2026-09-19T06:14:20.531Z] Command:       C:\Program Files\nodejs\node.exe E:\Sushanth Projects\QP GEN\node_modules\firebase-tools\lib\bin\firebase.js deploy --non-interactive
+[debug] [2026-09-19T06:14:20.532Z] CLI Version:   15.30.2
+[debug] [2026-09-19T06:14:20.532Z] Platform:      win32
+[debug] [2026-09-19T06:14:20.533Z] Node Version:  v24.14.1
+[debug] [2026-09-19T06:14:20.533Z] Detected Agent: antigravity
+[debug] [2026-09-19T06:14:20.533Z] Time:          Sat Sep 19 2026 11:44:20 GMT+0530 (India Standard Time)
+[debug] [2026-09-19T06:14:20.533Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-09-19T06:15:15.823Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-09-19T06:15:15.824Z] > authorizing via signed-in user (sushanthns05@gmail.com)
+[debug] [2026-09-19T06:15:15.824Z] [iam] checking project qp-gen-df712 for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebase.projects.update","firebaseauth.configs.update","firebasehosting.sites.update"]
+[debug] [2026-09-19T06:15:15.885Z] Checked if tokens are valid: true, expires at: 1789800529690
+[debug] [2026-09-19T06:15:15.886Z] Checked if tokens are valid: true, expires at: 1789800529690
+[debug] [2026-09-19T06:15:15.890Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/qp-gen-df712:testIamPermissions [none]
+[debug] [2026-09-19T06:15:15.891Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/qp-gen-df712:testIamPermissions  x-goog-user-project=qp-gen-df712
+[debug] [2026-09-19T06:15:15.891Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/qp-gen-df712:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebase.projects.update","firebaseauth.configs.update","firebasehosting.sites.update"]}
+[debug] [2026-09-19T06:15:17.598Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/qp-gen-df712:testIamPermissions 200
+[debug] [2026-09-19T06:15:17.599Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/qp-gen-df712:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebase.projects.update","firebaseauth.configs.update","firebasehosting.sites.update"]}
+[debug] [2026-09-19T06:15:17.601Z] Checked if tokens are valid: true, expires at: 1789800529690
+[debug] [2026-09-19T06:15:17.601Z] Checked if tokens are valid: true, expires at: 1789800529690
+[debug] [2026-09-19T06:15:17.602Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/qp-gen-df712/serviceAccounts/qp-gen-df712@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2026-09-19T06:15:17.603Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/qp-gen-df712/serviceAccounts/qp-gen-df712@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2026-09-19T06:15:19.179Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/qp-gen-df712/serviceAccounts/qp-gen-df712@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2026-09-19T06:15:19.179Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/qp-gen-df712/serviceAccounts/qp-gen-df712@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2026-09-19T06:15:19.182Z] Checked if tokens are valid: true, expires at: 1789800529690
+[debug] [2026-09-19T06:15:19.182Z] Checked if tokens are valid: true, expires at: 1789800529690
+[debug] [2026-09-19T06:15:19.182Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/qp-gen-df712 [none]
+[debug] [2026-09-19T06:15:20.074Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/qp-gen-df712 200
+[debug] [2026-09-19T06:15:20.075Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/qp-gen-df712 {"projectId":"qp-gen-df712","projectNumber":"501503571264","displayName":"QP GEN","name":"projects/qp-gen-df712","resources":{"hostingSite":"qp-gen-df712"},"state":"ACTIVE","labels":{"firebase":"enabled"},"etag":"1_c99b8611-46d0-4b13-ae7e-4b9b66cc4fe0"}
+[debug] [2026-09-19T06:15:38.634Z] defaultcredentials: writing to file C:\Users\Dell\AppData\Roaming\firebase\sushanthns05_gmail_com_application_default_credentials.json
+[debug] [2026-09-19T06:15:38.648Z] Checked if tokens are valid: true, expires at: 1789800529690
+[debug] [2026-09-19T06:15:38.649Z] Checked if tokens are valid: true, expires at: 1789800529690
+[debug] [2026-09-19T06:15:38.649Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/qp-gen-df712/sites pageToken=&pageSize=10
+[debug] [2026-09-19T06:15:39.935Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/qp-gen-df712/sites 200
+[debug] [2026-09-19T06:15:39.935Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/qp-gen-df712/sites {"sites":[{"name":"projects/qp-gen-df712/sites/qp-gen-df712","defaultUrl":"https://qp-gen-df712.web.app","appId":"1:501503571264:web:286dd6eb5464bfca50b6a5","type":"DEFAULT_SITE"}]}
+[debug] [2026-09-19T06:15:39.936Z] Checked if tokens are valid: true, expires at: 1789800529690
+[debug] [2026-09-19T06:15:39.937Z] Checked if tokens are valid: true, expires at: 1789800529690
+[debug] [2026-09-19T06:15:39.937Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:501503571264:web:286dd6eb5464bfca50b6a5/config [none]
+[debug] [2026-09-19T06:15:41.139Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:501503571264:web:286dd6eb5464bfca50b6a5/config 200
+[debug] [2026-09-19T06:15:41.140Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:501503571264:web:286dd6eb5464bfca50b6a5/config {"projectId":"qp-gen-df712","appId":"1:501503571264:web:286dd6eb5464bfca50b6a5","storageBucket":"qp-gen-df712.firebasestorage.app","apiKey":"AIzaSyCpm9-tJCn_HLs94VCdKmN--qkXwQfMQYE","authDomain":"qp-gen-df712.firebaseapp.com","messagingSenderId":"501503571264","measurementId":"G-BGBNBHE7WR","projectNumber":"501503571264","version":"2"}
+[info] 
+   Thank you for trying our early preview of Next.js support on Firebase Hosting.
+   During the preview, support is best-effort and breaking changes can be expected. Proceed with caution.
+   The integration is known to work with Next.js version 12 - 16.0. You may encounter errors.
+
+   Documentation: https://firebase.google.com/docs/hosting/frameworks/nextjs
+   File a bug: https://github.com/firebase/firebase-tools/issues/new?template=bug_report.md
+   Submit a feature request: https://github.com/firebase/firebase-tools/issues/new?template=feature_request.md
+
+   We'd love to learn from you. Express your interest in helping us shape the future of Firebase Hosting: https://goo.gle/41enW5X
+
+[debug] [2026-09-19T06:16:13.190Z] Checked if tokens are valid: true, expires at: 1789800529690
+[debug] [2026-09-19T06:16:13.191Z] Checked if tokens are valid: true, expires at: 1789800529690
+[debug] [2026-09-19T06:16:13.191Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/qp-gen-df712/sites/qp-gen-df712 [none]
+[debug] [2026-09-19T06:16:14.212Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/qp-gen-df712/sites/qp-gen-df712 200
+[debug] [2026-09-19T06:16:14.212Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/qp-gen-df712/sites/qp-gen-df712 {"name":"projects/qp-gen-df712/sites/qp-gen-df712","defaultUrl":"https://qp-gen-df712.web.app","appId":"1:501503571264:web:286dd6eb5464bfca50b6a5","type":"DEFAULT_SITE"}
+[info] ▲ Next.js 16.3.5 (Turbopack)
+
+[info] - Environments: .env
+
+[info] ✓ Running next.config.ts took 3.7s
+
+[info] 
+
+[info]   Creating an optimized production build ...
+
