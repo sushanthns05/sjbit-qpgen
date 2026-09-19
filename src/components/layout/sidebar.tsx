@@ -13,7 +13,9 @@ import {
   BarChart,
   Shield,
   Settings,
-  Bot
+  Bot,
+  LayoutTemplate,
+  Sparkles,
 } from "lucide-react";
 
 const routes = [
@@ -21,9 +23,9 @@ const routes = [
   { label: "AI Draft", icon: Bot, href: "/ai-draft" },
   { label: "Syllabus", icon: FileText, href: "/syllabus" },
   { label: "Question Bank", icon: Database, href: "/questions" },
-  { label: "Templates", icon: Layers, href: "/templates" },
-  { label: "Blueprints", icon: FileBadge, href: "/blueprints" },
-  { label: "Generate Paper", icon: FileText, href: "/generate-paper" },
+  { label: "Templates", icon: FileText, href: "/templates" },
+  { label: "Blueprints", icon: LayoutTemplate, href: "/blueprints" },
+  { label: "Generate Paper", icon: Sparkles, href: "/generate" },
   { label: "Paper History", icon: History, href: "/paper-history" },
   { label: "Analytics", icon: BarChart, href: "/analytics" },
   { label: "Audit Logs", icon: Shield, href: "/audit-logs" },
