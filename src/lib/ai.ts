@@ -79,7 +79,7 @@ export async function generateQuestion(params: GenerateQuestionParams) {
       contents: [{ role: "user", parts: [{ text: prompt }] }],
       generationConfig: {
         responseMimeType: "application/json",
-        responseSchema: questionSchema,
+        responseSchema: questionSchema as any,
         temperature: 0.7,
       },
     });

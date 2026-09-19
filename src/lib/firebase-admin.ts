@@ -1,8 +1,11 @@
-import * as admin from "firebase-admin";
+import { initializeApp, getApps, getApp, cert, App } from "firebase-admin/app";
+import { getAuth } from "firebase-admin/auth";
+import { getFirestore } from "firebase-admin/firestore";
+import { getStorage } from "firebase-admin/storage";
 
-const getFirebaseAdminApp = () => {
-  if (admin.apps.length > 0) {
-    return admin.apps[0] as admin.app.App;
+const getFirebaseAdminApp = (): App => {
+  if (getApps().length > 0) {
+    return getApp();
   }
 
   const clientEmail = process.env.FIREBASE_CLIENT_EMAIL;
@@ -13,16 +16,16 @@ const getFirebaseAdminApp = () => {
     console.warn("Firebase Admin environment variables are missing.");
   }
 
-  return admin.initializeApp({
-    credential: admin.credential.cert({
-      clientEmail,
-      privateKey,
-      projectId,
+  return initializeApp({
+    credential: cert({
+      clientEmail: clientEmail || "",
+      privateKey: privateKey || "",
+      projectId: projectId || "",
     }),
   });
 };
 
 export const adminApp = getFirebaseAdminApp();
-export const adminAuth = adminApp.auth();
-export const adminDb = adminApp.firestore();
-export const adminStorage = adminApp.storage();
+export const adminAuth = getAuth(adminApp);
+export const adminDb = getFirestore(adminApp);
+export const adminStorage = getStorage(adminApp);
