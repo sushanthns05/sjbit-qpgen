@@ -46,40 +46,62 @@ export default function AIDraftPage() {
     }
   };
 
+  const [generationProgress, setGenerationProgress] = useState<{current: number, total: number} | null>(null);
+
   const handleGenerate = async () => {
     if (!subject || !topic) {
       toast({ title: "Error", description: "Subject and Topic are required", variant: "destructive" });
       return;
     }
 
-    setLoading(true);
-    try {
-      const response = await fetch("/api/generate-questions", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          apiKey: apiKey || undefined,
-          count: parseInt(count, 10),
-          subject,
-          topic,
-          difficulty,
-          cognitiveLevel,
-          type: questionType,
-          context: syllabusText.substring(0, 5000), // send max 5000 chars of syllabus context
-        }),
-      });
+    const totalQuestions = parseInt(count, 10);
+    if (isNaN(totalQuestions) || totalQuestions < 1) {
+      toast({ title: "Error", description: "Invalid number of questions", variant: "destructive" });
+      return;
+    }
 
-      const data = await response.json();
-      if (data.success) {
-        setGeneratedQuestions(data.questions);
-        toast({ title: "Success", description: `Generated ${data.questions.length} questions.` });
-      } else {
-        throw new Error(data.error);
+    setLoading(true);
+    setGenerationProgress({ current: 0, total: totalQuestions });
+    setGeneratedQuestions([]);
+    
+    // Batch size of 10 to avoid Gemini output truncation & Vercel timeouts
+    const BATCH_SIZE = 10;
+    let questionsCollected: any[] = [];
+    
+    try {
+      for (let i = 0; i < totalQuestions; i += BATCH_SIZE) {
+        const chunkSize = Math.min(BATCH_SIZE, totalQuestions - i);
+        
+        const response = await fetch("/api/generate-questions", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            apiKey: apiKey || undefined,
+            count: chunkSize,
+            subject,
+            topic,
+            difficulty,
+            cognitiveLevel,
+            type: questionType,
+            context: syllabusText.substring(0, 5000),
+          }),
+        });
+
+        const data = await response.json();
+        if (data.success) {
+          questionsCollected = [...questionsCollected, ...data.questions];
+          setGeneratedQuestions(questionsCollected);
+          setGenerationProgress({ current: questionsCollected.length, total: totalQuestions });
+        } else {
+          throw new Error(data.error);
+        }
       }
+      toast({ title: "Success", description: `Successfully generated ${questionsCollected.length} questions.` });
     } catch (err: any) {
-      toast({ title: "Error", description: err.message || "Failed to generate questions", variant: "destructive" });
+      toast({ title: "Error", description: err.message || "Failed to generate questions. Process stopped early.", variant: "destructive" });
     } finally {
       setLoading(false);
+      setGenerationProgress(null);
     }
   };
 
@@ -207,19 +229,26 @@ export default function AIDraftPage() {
             
             <div className="space-y-2">
               <Label>Number of Questions to Generate</Label>
-              <Select value={count} onValueChange={(val) => val && setCount(val)}>
-                <SelectTrigger><SelectValue /></SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="1">1</SelectItem>
-                  <SelectItem value="3">3</SelectItem>
-                  <SelectItem value="5">5</SelectItem>
-                </SelectContent>
-              </Select>
+              <Input 
+                type="number" 
+                min="1" 
+                max="2000"
+                value={count} 
+                onChange={(e) => setCount(e.target.value)} 
+                placeholder="e.g. 10, 500, 1000"
+              />
             </div>
           </div>
           
           <Button onClick={handleGenerate} disabled={loading} className="w-full">
-            {loading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Generating...</> : "Generate AI Questions"}
+            {loading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" /> 
+                {generationProgress 
+                  ? `Generating ${generationProgress.current} / ${generationProgress.total}...` 
+                  : "Generating..."}
+              </>
+            ) : "Generate AI Questions"}
           </Button>
         </CardContent>
       </Card>

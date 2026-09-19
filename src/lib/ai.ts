@@ -54,10 +54,16 @@ const questionSchema = {
   required: ["text", "explanation"]
 };
 
-export async function generateQuestion(params: GenerateQuestionParams, customKey?: string) {
+const batchSchema = {
+  type: SchemaType.ARRAY,
+  description: "A list of generated exam questions.",
+  items: questionSchema,
+};
+
+export async function generateQuestionsBatch(params: GenerateQuestionParams, count: number, customKey?: string) {
   const prompt = `
     You are an expert exam question generator for a university. 
-    Generate a high-quality question based on the following parameters:
+    Generate EXACTLY ${count} high-quality questions based on the following parameters:
     
     Subject: ${params.subject}
     Topic: ${params.topic}
@@ -65,13 +71,15 @@ export async function generateQuestion(params: GenerateQuestionParams, customKey
     Cognitive Level (Bloom's Taxonomy): ${params.cognitiveLevel}
     Question Type: ${params.type}
     
-    ${params.context ? `Use the following syllabus context to inform your question:\n${params.context}` : ""}
+    ${params.context ? `Use the following syllabus context to inform your questions:\n${params.context}` : ""}
     
-    Requirements:
+    Requirements for each question:
     1. If the type is MCQ, provide exactly 4 options with only 1 correct answer.
     2. The question text should be formatted as basic HTML for a rich text editor (e.g., use <p>, <strong>, <em>, <ul>, <li>). Do not use markdown backticks in the text field, just HTML.
     3. Ensure the cognitive level and difficulty accurately match the requested parameters.
     4. Provide a clear explanation for the answer.
+    
+    IMPORTANT: You must return an array of exactly ${count} questions.
   `;
 
   try {
@@ -80,15 +88,16 @@ export async function generateQuestion(params: GenerateQuestionParams, customKey
       contents: [{ role: "user", parts: [{ text: prompt }] }],
       generationConfig: {
         responseMimeType: "application/json",
-        responseSchema: questionSchema as any,
+        responseSchema: batchSchema as any,
         temperature: 0.7,
       },
     });
 
     const responseText = result.response.text();
-    return JSON.parse(responseText);
+    const parsed = JSON.parse(responseText);
+    return Array.isArray(parsed) ? parsed : [parsed];
   } catch (error) {
     console.error("AI Generation Error:", error);
-    throw new Error("Failed to generate question with AI");
+    throw new Error("Failed to generate questions with AI");
   }
 }
